@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+    <metadata>
+        <id>VariablesManager</id>
+        <version>1.0.0</version>
+        <authors>SbornayaSolyanka</authors>
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <description>Установка переменных среды для разработки Timex</description>
+    </metadata>
+    <files>
+        <file src="..\Source\_output\Release\VariablesManager.exe" target="tools\VariablesManager.exe" />
+        <file src="..\Source\_output\Release\VariablesManager.exe.config" target="tools\VariablesManager.exe.config" />
+    </files>
+</package>
