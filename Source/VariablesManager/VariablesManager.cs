@@ -24,8 +24,28 @@ namespace ArmoSystems.ArmoGet.VariablesManager
                     ToList();
 
             RemoveUnusedVariables( variablesForSet );
-            variablesForSet.ForEach( item => item.SetEnviromentVariable() );
+            SetVariables( variablesForSet );
+
             FilesHelper.AppendHostsIfNotExists();
+        }
+
+        private static void SetVariables( List< Variable > variablesForSet )
+        {
+            while ( variablesForSet.Any( item => item.Value.Contains( "%Timex" ) ) )
+            {
+                variablesForSet.Where( item => item.Value.Contains( "%Timex" ) ).ToList().ForEach( item =>
+                                                                                                   {
+                                                                                                       var match = Regex.Match( item.Value, ".*(%Timex.*%).*" );
+                                                                                                       while ( match.Success )
+                                                                                                       {
+                                                                                                           var variableInside = match.Groups[ 1 ].Value;
+                                                                                                           item.Value = item.Value.Replace( variableInside,
+                                                                                                               variablesForSet.First( item1 => item1.Name == variableInside.Substring( 1, variableInside.Length - 2 ) ).Value );
+                                                                                                           match = match.NextMatch();
+                                                                                                       }
+                                                                                                   } );
+            }
+            variablesForSet.ForEach( item => item.SetEnviromentVariable() );
         }
 
         private static void RemoveUnusedVariables( IEnumerable< Variable > variablesForSet )
@@ -56,9 +76,7 @@ namespace ArmoSystems.ArmoGet.VariablesManager
                 variablesBranches.Select( branch => new { Name = branch.Groups[ 1 ].Value, Variables = branch.Groups[ 2 ].Value } ).
                     Where( branch => branch.Name == FilesHelper.DefaultBranchName || branch.Name == FilesHelper.CurrentBranchName ).
                     SelectMany(
-                        branch =>
-                            branch.Variables.Split( new[] { "\r\n" }, StringSplitOptions.RemoveEmptyEntries ).
-                                Select( item => new { Priority = GetVariablePriority( fileName, branch.Name ), Values = item.Split( '=' ) } ) ).
+                        branch => branch.Variables.Split( new[] { "\r\n" }, StringSplitOptions.RemoveEmptyEntries ).Select( item => new { Priority = GetVariablePriority( fileName, branch.Name ), Values = item.Split( '=' ) } ) ).
                     Select( item => new Variable( item.Values[ 0 ], item.Values[ 1 ], item.Priority ) );
         }
 

@@ -2,25 +2,24 @@
 
 namespace ArmoSystems.ArmoGet.VariablesManager.Classes
 {
-    internal struct Variable
+    internal sealed class Variable
     {
-        
-        private readonly string value;
-
-        public Variable( string name, string value, int priority ) : this()
+        public Variable( string name, string value, int priority )
         {
-            this.value = value;
+            Value = value;
             Name = name;
             Priority = priority;
         }
+
+        public string Value { get; set; }
 
         public int Priority { get; private set; }
         public string Name { get; private set; }
 
         public void SetEnviromentVariable()
         {
-            if ( Environment.GetEnvironmentVariable( Name, VariablesManager.VariableTarget ) != value )
-                Environment.SetEnvironmentVariable( Name, value, VariablesManager.VariableTarget );
+            if ( Environment.GetEnvironmentVariable( Name, VariablesManager.VariableTarget ) != Value )
+                Environment.SetEnvironmentVariable( Name, Value, VariablesManager.VariableTarget );
         }
     }
 }
