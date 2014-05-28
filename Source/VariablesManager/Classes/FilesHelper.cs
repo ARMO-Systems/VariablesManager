@@ -66,7 +66,7 @@ namespace ArmoSystems.ArmoGet.VariablesManager.Classes
             }
         }
 
-        private static string GetVariablesFilePath( string fileName )
+        public static string GetVariablesFilePath( string fileName )
         {
             return Path.Combine( VariablesFolder, fileName );
         }

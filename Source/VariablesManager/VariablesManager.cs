@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using ArmoSystems.ArmoGet.VariablesManager.Classes;
@@ -15,9 +16,10 @@ namespace ArmoSystems.ArmoGet.VariablesManager
             if ( !FilesHelper.FileExists( FilesHelper.DefaultTextFile ) )
                 throw new Exception( String.Format( "Не найден файл {0}", FilesHelper.DefaultTextFile ) );
 
+            var name = Path.GetFileName( FilesHelper.GetVariablesFilePath( FilesHelper.CustomizedTextFile ) );
             var variablesForSet =
                 GetFileVariables( FilesHelper.DefaultTextFile ).
-                    Concat( GetFileVariables( FilesHelper.CustomizedTextFile ) ).
+                    Concat( Enumerable.Range( 1, name.Length ).Select( item => name.Substring( 0, item ) + ".txt" ).SelectMany( GetFileVariables ) ).
                     Concat( GetCalculateVariables() ).
                     GroupBy( variable => variable.Name ).
                     Select( group => group.OrderBy( variable => variable.Priority ).Last() ).
@@ -59,7 +61,7 @@ namespace ArmoSystems.ArmoGet.VariablesManager
 
         private static int GetVariablePriority( string variableFileName, string variableBranchName )
         {
-            return ( variableFileName == FilesHelper.DefaultTextFile ? 0 : 2 ) + ( variableBranchName == FilesHelper.DefaultBranchName ? 1 : 2 );
+            return ( variableFileName == FilesHelper.DefaultTextFile ? 0 : variableFileName.Length ) + ( variableBranchName == FilesHelper.DefaultBranchName ? 1 : 2 );
         }
 
         private static IEnumerable< Variable > GetFileVariables( string fileName )
