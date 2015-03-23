@@ -78,7 +78,7 @@ namespace ArmoSystems.ArmoGet.VariablesManager
                 variablesBranches.Select( branch => new { Name = branch.Groups[ 1 ].Value, Variables = branch.Groups[ 2 ].Value } ).
                     Where( branch => branch.Name == FilesHelper.DefaultBranchName || branch.Name == FilesHelper.CurrentBranchName ).
                     SelectMany(
-                        branch => branch.Variables.Split( new[] { "\r\n" }, StringSplitOptions.RemoveEmptyEntries ).Select( item => new { Priority = GetVariablePriority( fileName, branch.Name ), Values = item.Split( '=' ) } ) ).
+                        branch => branch.Variables.Split( new[] { "\r", "\n" }, StringSplitOptions.RemoveEmptyEntries ).Select( item => new { Priority = GetVariablePriority( fileName, branch.Name ), Values = item.Split( '=' ) } ) ).
                     Select( item => new Variable( item.Values[ 0 ], item.Values[ 1 ], item.Priority ) );
         }
 
