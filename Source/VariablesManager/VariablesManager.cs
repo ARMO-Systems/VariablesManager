@@ -25,10 +25,26 @@ namespace ArmoSystems.ArmoGet.VariablesManager
                     Select( group => group.OrderBy( variable => variable.Priority ).Last() ).
                     ToList();
 
+            variablesForSet.AddRange( GetCalculateVariables( variablesForSet ) );
             RemoveUnusedVariables( variablesForSet );
             SetVariables( variablesForSet );
 
             FilesHelper.AppendHostsIfNotExists();
+        }
+
+        private static IEnumerable< Variable > GetCalculateVariables( IEnumerable< Variable > variablesForSet )
+        {
+            return new List< Variable >
+            {
+                CreateCalculateVariable( "CommonMicrosoftSDKTools",
+                    GetValue( variablesForSet, "IsVS2015", false ) ? @"c:\Program Files (x86)\Microsoft SDKs\Windows\v10.0A\bin\NETFX 4.6.1 Tools\" : @"%ProgramFiles%\Microsoft SDKs\Windows\v8.0A\Bin\NETFX 4.0 Tools\" )
+            };
+        }
+
+        private static bool GetValue( IEnumerable< Variable > variablesForSet, string name, bool defaultValue )
+        {
+            var val = variablesForSet.FirstOrDefault( item => item.Name == name );
+            return val == null ? defaultValue : Convert.ToBoolean( val.Value );
         }
 
         private static void SetVariables( List< Variable > variablesForSet )
