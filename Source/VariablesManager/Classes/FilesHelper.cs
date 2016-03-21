@@ -21,15 +21,6 @@ namespace ArmoSystems.ArmoGet.VariablesManager.Classes
             get { return string.Format( @"{0}\System32\drivers\etc\hosts", Environment.GetEnvironmentVariable( "windir" ) ); }
         }
 
-        public static string PathToMSBuild
-        {
-            get
-            {
-                var pathWithInstalled64BitMsBuild = Path.Combine( Environment.GetFolderPath( Environment.SpecialFolder.ProgramFiles ), @"MSBuild\12.0\bin\AMD64" );
-                return Directory.Exists( pathWithInstalled64BitMsBuild ) ? pathWithInstalled64BitMsBuild : Path.Combine( Environment.GetFolderPath( Environment.SpecialFolder.ProgramFilesX86 ), @"MSBuild\12.0\bin" );
-            }
-        }
-
         public static string CurrentBranchName
         {
             get

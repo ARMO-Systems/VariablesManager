@@ -32,12 +32,15 @@ namespace ArmoSystems.ArmoGet.VariablesManager
             FilesHelper.AppendHostsIfNotExists();
         }
 
-        private static IEnumerable< Variable > GetCalculateVariables( IEnumerable< Variable > variablesForSet )
+        private static IEnumerable< Variable > GetCalculateVariables( List< Variable > variablesForSet )
         {
             return new List< Variable >
             {
                 CreateCalculateVariable( "CommonMicrosoftSDKTools",
-                    GetValue( variablesForSet, "IsVS2015", false ) ? @"c:\Program Files (x86)\Microsoft SDKs\Windows\v10.0A\bin\NETFX 4.6.1 Tools\" : @"%ProgramFiles%\Microsoft SDKs\Windows\v8.0A\Bin\NETFX 4.0 Tools\" )
+                    GetValue( variablesForSet, "IsVS2015", false ) ? @"c:\Program Files (x86)\Microsoft SDKs\Windows\v10.0A\bin\NETFX 4.6.1 Tools" : @"%ProgramFiles%\Microsoft SDKs\Windows\v8.0A\Bin\NETFX 4.0 Tools" ),
+                CreateCalculateVariable( "CommonTextTemplating",
+                    GetValue( variablesForSet, "IsVS2015", false ) ? @"c:\Program Files (x86)\Common Files\Microsoft Shared\TextTemplating\14.0" : @"c:\Program Files (x86)\Common Files\Microsoft Shared\TextTemplating\12.0" ),
+                CreateCalculateVariable( "CommonMSBuildPath", GetValue( variablesForSet, "IsVS2015", false ) ? @"c:\Program Files (x86)\MSBuild\14.0\Bin" : @"C:\Program Files (x86)\MSBuild\12.0\bin" )
             };
         }
 
@@ -107,11 +110,7 @@ namespace ArmoSystems.ArmoGet.VariablesManager
 
         private static IEnumerable< Variable > GetCalculateVariables()
         {
-            return new List< Variable >
-            {
-                CreateCalculateVariable( "CommonMSBuildPath", FilesHelper.PathToMSBuild ),
-                CreateCalculateVariable( "CommonPlatformBit", String.Format( "x{0}", Environment.Is64BitOperatingSystem ? "64" : "86" ) )
-            };
+            return new List< Variable > { CreateCalculateVariable( "CommonPlatformBit", String.Format( "x{0}", Environment.Is64BitOperatingSystem ? "64" : "86" ) ) };
         }
     }
 }
