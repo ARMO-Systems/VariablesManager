@@ -37,10 +37,10 @@ namespace ArmoSystems.ArmoGet.VariablesManager
             return new List< Variable >
             {
                 CreateCalculateVariable( "CommonMicrosoftSDKTools",
-                    GetValue( variablesForSet, "IsVS2015", false ) ? @"c:\Program Files (x86)\Microsoft SDKs\Windows\v10.0A\bin\NETFX 4.6.1 Tools" : @"c:\Program Files (x86)\Microsoft SDKs\Windows\v8.0A\Bin\NETFX 4.0 Tools" ),
+                    GetValue( variablesForSet, "TimexIsVS2015", false ) ? @"c:\Program Files (x86)\Microsoft SDKs\Windows\v10.0A\bin\NETFX 4.6.1 Tools" : @"c:\Program Files (x86)\Microsoft SDKs\Windows\v8.0A\Bin\NETFX 4.0 Tools" ),
                 CreateCalculateVariable( "CommonTextTemplating",
-                    GetValue( variablesForSet, "IsVS2015", false ) ? @"c:\Program Files (x86)\Common Files\Microsoft Shared\TextTemplating\14.0" : @"c:\Program Files (x86)\Common Files\Microsoft Shared\TextTemplating\12.0" ),
-                CreateCalculateVariable( "CommonMSBuildPath", GetValue( variablesForSet, "IsVS2015", false ) ? @"c:\Program Files (x86)\MSBuild\14.0\Bin" : @"C:\Program Files (x86)\MSBuild\12.0\bin" )
+                    GetValue( variablesForSet, "TimexIsVS2015", false ) ? @"c:\Program Files (x86)\Common Files\Microsoft Shared\TextTemplating\14.0" : @"c:\Program Files (x86)\Common Files\Microsoft Shared\TextTemplating\12.0" ),
+                CreateCalculateVariable( "CommonMSBuildPath", GetValue( variablesForSet, "TimexIsVS2015", false ) ? @"c:\Program Files (x86)\MSBuild\14.0\Bin" : @"C:\Program Files (x86)\MSBuild\12.0\bin" )
             };
         }
 
