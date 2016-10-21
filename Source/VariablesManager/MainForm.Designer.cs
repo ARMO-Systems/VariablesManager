@@ -35,8 +35,10 @@
             this.menuSetVariables = new System.Windows.Forms.ToolStripMenuItem();
             this.menuExit = new System.Windows.Forms.ToolStripMenuItem();
             this.fileSystemWatcher = new System.IO.FileSystemWatcher();
+            this.fileSystemWatcherSmartec = new System.IO.FileSystemWatcher();
             this.contextMenuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.fileSystemWatcher)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.fileSystemWatcherSmartec)).BeginInit();
             this.SuspendLayout();
             // 
             // trayIcon
@@ -74,6 +76,13 @@
             this.fileSystemWatcher.SynchronizingObject = this;
             this.fileSystemWatcher.Changed += new System.IO.FileSystemEventHandler(this.fileSystemWatcher_Changed);
             // 
+            // fileSystemWatcherSmartec
+            // 
+            this.fileSystemWatcherSmartec.EnableRaisingEvents = true;
+            this.fileSystemWatcherSmartec.Filter = "*.txt";
+            this.fileSystemWatcherSmartec.SynchronizingObject = this;
+            this.fileSystemWatcherSmartec.Changed += new System.IO.FileSystemEventHandler(this.fileSystemWatcher_Changed);
+            // 
             // VariablesManager
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -86,6 +95,7 @@
             this.Text = "VariablesManager";
             this.contextMenuStrip.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.fileSystemWatcher)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.fileSystemWatcherSmartec)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -97,5 +107,6 @@
         private System.Windows.Forms.ToolStripMenuItem menuExit;
         private System.Windows.Forms.ToolStripMenuItem menuSetVariables;
         private System.IO.FileSystemWatcher fileSystemWatcher;
+        private System.IO.FileSystemWatcher fileSystemWatcherSmartec;
     }
 }

@@ -53,6 +53,7 @@
   <ItemGroup>
     <Compile Include="Classes\FilesHelper.cs" />
     <Compile Include="Classes\Variable.cs" />
+    <Compile Include="Classes\VariablesFile.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>

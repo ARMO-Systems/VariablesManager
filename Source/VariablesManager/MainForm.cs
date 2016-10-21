@@ -11,7 +11,8 @@ namespace ArmoSystems.ArmoGet.VariablesManager
         public MainForm()
         {
             InitializeComponent();
-            fileSystemWatcher.Path = FilesHelper.VariablesFolder;
+            fileSystemWatcher.Path = FilesHelper.VariablesFolderTimex;
+            fileSystemWatcherSmartec.Path = FilesHelper.VariablesFolderSmartec;
             UpdateVariables();
         }
 
@@ -30,7 +31,7 @@ namespace ArmoSystems.ArmoGet.VariablesManager
 
         private void UpdateNotifyIcon( string ballonMessage, ToolTipIcon tipIcon )
         {
-            trayIcon.ShowBalloonTip( 3000, String.Empty, ballonMessage, tipIcon );
+            trayIcon.ShowBalloonTip( 3000, string.Empty, ballonMessage, tipIcon );
             trayIcon.Icon = tipIcon == ToolTipIcon.Error ? Resources.Error : Resources.Eyeball;
             trayIcon.Text = tipIcon == ToolTipIcon.Error ? ballonMessage : Program.ProgramName;
         }
@@ -41,7 +42,7 @@ namespace ArmoSystems.ArmoGet.VariablesManager
             {
                 fileSystemWatcher.EnableRaisingEvents = false;
                 var changedFileName = e.Name.ToLower();
-                if ( changedFileName == FilesHelper.CustomizedTextFile.ToLower() || changedFileName == FilesHelper.DefaultTextFile.ToLower() )
+                if ( changedFileName == FilesHelper.CustomizedTextFile.ToLower() || changedFileName == VariablesFile.DefaultTextFile.ToLower() )
                     UpdateVariables();
             }
             catch ( Exception ex )
