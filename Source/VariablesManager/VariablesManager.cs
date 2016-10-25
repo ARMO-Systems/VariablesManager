@@ -17,7 +17,7 @@ namespace ArmoSystems.ArmoGet.VariablesManager
 
         public static void UpdateVariables()
         {
-            if ( !DefaultTimexFile.FileExists() )
+            if ( !DefaultTimexFile.FileExists() && !DefaultSmartecFile.FileExists() )
                 throw new Exception( $"Не найден файл {DefaultTimexFile.FileName}" );
 
             var variablesFiles = new[] { DefaultTimexFile, DefaultSmartecFile }.Concat( CustomTimexFile.GetVariantsCustomFilePaths() ).Concat( CustomSmartecFile.GetVariantsCustomFilePaths() );

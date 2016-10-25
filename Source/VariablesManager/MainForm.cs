@@ -11,8 +11,10 @@ namespace ArmoSystems.ArmoGet.VariablesManager
         public MainForm()
         {
             InitializeComponent();
-            fileSystemWatcher.Path = FilesHelper.VariablesFolderTimex;
-            fileSystemWatcherSmartec.Path = FilesHelper.VariablesFolderSmartec;
+            if ( File.Exists( FilesHelper.VariablesFolderTimex ) )
+                fileSystemWatcher.Path = FilesHelper.VariablesFolderTimex;
+            if ( File.Exists( FilesHelper.VariablesFolderSmartec ) )
+                fileSystemWatcherSmartec.Path = FilesHelper.VariablesFolderSmartec;
             UpdateVariables();
         }
 
