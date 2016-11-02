@@ -11,9 +11,9 @@ namespace ArmoSystems.ArmoGet.VariablesManager
         public MainForm()
         {
             InitializeComponent();
-            if ( File.Exists( FilesHelper.VariablesFolderTimex ) )
+            if ( Directory.Exists( FilesHelper.VariablesFolderTimex ) )
                 fileSystemWatcher.Path = FilesHelper.VariablesFolderTimex;
-            if ( File.Exists( FilesHelper.VariablesFolderSmartec ) )
+            if ( Directory.Exists( FilesHelper.VariablesFolderSmartec ) )
                 fileSystemWatcherSmartec.Path = FilesHelper.VariablesFolderSmartec;
             UpdateVariables();
         }
@@ -40,9 +40,10 @@ namespace ArmoSystems.ArmoGet.VariablesManager
 
         private void fileSystemWatcher_Changed( object sender, FileSystemEventArgs e )
         {
+            var fileWatcher = ( FileSystemWatcher ) sender;
             try
             {
-                fileSystemWatcher.EnableRaisingEvents = false;
+                fileWatcher.EnableRaisingEvents = false;
                 var changedFileName = e.Name.ToLower();
                 if ( changedFileName == FilesHelper.CustomizedTextFile.ToLower() || changedFileName == VariablesFile.DefaultTextFile.ToLower() )
                     UpdateVariables();
@@ -53,7 +54,7 @@ namespace ArmoSystems.ArmoGet.VariablesManager
             }
             finally
             {
-                fileSystemWatcher.EnableRaisingEvents = true;
+                fileWatcher.EnableRaisingEvents = true;
             }
         }
 
