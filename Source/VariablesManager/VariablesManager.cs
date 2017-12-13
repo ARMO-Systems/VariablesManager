@@ -36,9 +36,8 @@ namespace ArmoSystems.ArmoGet.VariablesManager
             {
                 CreateCalculateVariable( "CommonMicrosoftSDKTools",
                     GetValue( variablesForSet, "TimexIsVS2015", false ) ? @"c:\Program Files (x86)\Microsoft SDKs\Windows\v10.0A\bin\NETFX 4.6.1 Tools" : @"c:\Program Files (x86)\Microsoft SDKs\Windows\v8.0A\Bin\NETFX 4.0 Tools" ),
-                CreateCalculateVariable( "CommonTextTemplating",
-                    GetValue( variablesForSet, "TimexIsVS2015", false ) ? @"c:\Program Files (x86)\Common Files\Microsoft Shared\TextTemplating\14.0" : @"c:\Program Files (x86)\Common Files\Microsoft Shared\TextTemplating\12.0" ),
-                CreateCalculateVariable( "CommonMSBuildPath", GetValue( variablesForSet, "TimexIsVS2015", false ) ? @"c:\Program Files (x86)\MSBuild\14.0\Bin" : @"C:\Program Files (x86)\MSBuild\12.0\bin" )
+                CreateCalculateVariable( "CommonTextTemplating", @"C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\Common7\IDE" ),
+                CreateCalculateVariable( "CommonMSBuildPath", @"C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\MSBuild\15.0\Bin" )
             };
         }
 
